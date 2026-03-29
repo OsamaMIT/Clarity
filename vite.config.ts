@@ -62,7 +62,8 @@ export default defineConfig(({ mode }) => {
       sourcemap: false,
       rollupOptions: {
         input: {
-          options: resolve(__dirname, "options.html")
+          options: resolve(__dirname, "options.html"),
+          popup: resolve(__dirname, "popup.html")
         },
         output: {
           entryFileNames: "[name].js",

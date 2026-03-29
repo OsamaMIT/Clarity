@@ -29,3 +29,12 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     void chrome.runtime.lastError;
   });
 });
+
+chrome.action.onClicked.addListener(() => {
+  const optionsUrl = chrome.runtime.getURL("options.html");
+  chrome.tabs.create({ url: optionsUrl }, () => {
+    if (chrome.runtime.lastError) {
+      chrome.runtime.openOptionsPage();
+    }
+  });
+});
