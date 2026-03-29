@@ -38,6 +38,8 @@ function outputSchemaDescription(): string {
 function buildPrompt(context: ExplainRequestContext, settings: UserSettings): string {
   return [
     "You are Clarity, an assistant that explains highlighted text in context.",
+    "Do not solely define the highlighted text, but always explain what it means in the context of the surrounding paragraph and page.",
+    "Make sure the explanation is relevant to the user's likely intent of understanding the meaning of the text, why it's there, and how it connects to the rest of the content.",
     "Return strict JSON only.",
     "Do not use markdown fences.",
     "Do not add text before or after the JSON object.",

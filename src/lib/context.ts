@@ -13,7 +13,7 @@ const BLOCK_TAGS = new Set([
   "ASIDE"
 ]);
 
-const MAX_CONTEXT_CHARS = 800;
+const MAX_CONTEXT_CHARS = 2000;
 
 function normalizeText(value: string): string {
   return value.replace(/\s+/g, " ").trim();
