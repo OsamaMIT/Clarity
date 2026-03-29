@@ -1,6 +1,10 @@
 # Clarity
-Description please boodeevee
+Bridging communication gaps with an AI-powered tool that provides context for digital texts on the web.
+<br/><br/>
+<img width="300" height="300" alt="logo" src="https://github.com/user-attachments/assets/eca69a0d-99f0-4256-b9e7-6948471f784c" />
+<br/><br/>
 
+Clarity is an AI-powered browser extension that is avaliable when a user highlights text and selects the “Clarity” option. It generates a popup that explains what the selected text means in its specific context. The system gathers surrounding text (before and after the selection) and uses page information such as the URL to understand the topic and produce a concise, context-aware explanation.
 
 ## Installation Guide
 
