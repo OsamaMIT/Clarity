@@ -37,7 +37,7 @@ function outputSchemaDescription(): string {
 
 function buildPrompt(context: ExplainRequestContext, settings: UserSettings): string {
   return [
-    "You are Clarte, an assistant that explains highlighted text in context.",
+    "You are Clarity, an assistant that explains highlighted text in context.",
     "Return strict JSON only.",
     "Do not use markdown fences.",
     "Do not add text before or after the JSON object.",
@@ -152,7 +152,7 @@ export async function generateExplanation(
     return {
       ok: false,
       errorCode: "missing_api_key",
-      message: "Gemini API key is missing. Set it in Clarte settings."
+      message: "Gemini API key is missing. Set it in Clarity settings."
     };
   }
 

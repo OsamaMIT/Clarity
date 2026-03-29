@@ -33,7 +33,7 @@
 <main class="mx-auto w-full max-w-2xl p-6">
   <div class="rounded-lg border border-border bg-card p-6 shadow-card">
     <header class="mb-5">
-      <h1 class="text-xl font-semibold">Clarte Settings</h1>
+      <h1 class="text-xl font-semibold">Clarity Settings</h1>
       <p class="mt-1 text-sm text-muted-foreground">Configure Gemini and explanation preferences.</p>
     </header>
 

@@ -17,13 +17,57 @@
   const dispatch = createEventDispatcher<{
     close: undefined;
     retry: undefined;
+    move: { top: number; left: number };
   }>();
 
   $: isLoading = state === "loading";
   $: isSuccess = state === "success" || state === "low_confidence";
   $: isLowConfidence = state === "low_confidence";
   $: isError = state === "error" || state === "timeout";
+
+  let dragging = false;
+  let dragPointerId: number | null = null;
+  let dragStartPointerX = 0;
+  let dragStartPointerY = 0;
+  let dragStartTop = 0;
+  let dragStartLeft = 0;
+
+  function startDrag(event: PointerEvent): void {
+    const target = event.target as HTMLElement | null;
+    if (!target || target.closest("button")) {
+      return;
+    }
+    dragging = true;
+    dragPointerId = event.pointerId;
+    dragStartPointerX = event.clientX;
+    dragStartPointerY = event.clientY;
+    dragStartTop = position.top;
+    dragStartLeft = position.left;
+    event.preventDefault();
+  }
+
+  function moveDrag(event: PointerEvent): void {
+    if (!dragging || dragPointerId !== event.pointerId) {
+      return;
+    }
+    const dx = event.clientX - dragStartPointerX;
+    const dy = event.clientY - dragStartPointerY;
+    dispatch("move", {
+      top: dragStartTop + dy,
+      left: dragStartLeft + dx
+    });
+  }
+
+  function endDrag(event: PointerEvent): void {
+    if (dragPointerId !== event.pointerId) {
+      return;
+    }
+    dragging = false;
+    dragPointerId = null;
+  }
 </script>
+
+<svelte:window on:pointermove={moveDrag} on:pointerup={endDrag} on:pointercancel={endDrag} />
 
 {#if visible && state !== "hidden"}
   <div class="fixed inset-0 z-[2147483647] pointer-events-none">
@@ -31,9 +75,9 @@
       class="clarte-card-enter pointer-events-auto absolute w-[min(380px,calc(100vw-24px))] max-h-[min(75vh,560px)] overflow-auto rounded-lg border border-border bg-card p-4 text-card-foreground shadow-card"
       style={`top:${position.top}px;left:${position.left}px;`}
     >
-      <header class="mb-3 flex items-start justify-between gap-3">
+      <header class="mb-3 flex items-start justify-between gap-3 cursor-move select-none" on:pointerdown={startDrag}>
         <div class="space-y-1">
-          <p class="text-sm font-semibold">Clarte</p>
+          <p class="text-sm font-semibold">Clarity</p>
           <p class="text-xs text-muted-foreground">Context explanation</p>
         </div>
         <Button

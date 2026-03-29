@@ -51,6 +51,19 @@ function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max);
 }
 
+function clampCardPosition(position: { top: number; left: number }): { top: number; left: number } {
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const cardWidth = Math.min(CARD_WIDTH, viewportWidth - CARD_MARGIN * 2);
+  const maxTop = Math.max(CARD_MARGIN, viewportHeight - CARD_HEIGHT_ESTIMATE - CARD_MARGIN);
+  const maxLeft = Math.max(CARD_MARGIN, viewportWidth - cardWidth - CARD_MARGIN);
+
+  return {
+    top: clamp(position.top, CARD_MARGIN, maxTop),
+    left: clamp(position.left, CARD_MARGIN, maxLeft)
+  };
+}
+
 function computeCardPosition(selection: SelectionData): { top: number; left: number } {
   const viewportWidth = window.innerWidth;
   const viewportHeight = window.innerHeight;
@@ -67,7 +80,7 @@ function computeCardPosition(selection: SelectionData): { top: number; left: num
   top = clamp(top, CARD_MARGIN, maxTop);
   left = clamp(left, CARD_MARGIN, viewportWidth - cardWidth - CARD_MARGIN);
 
-  return { top, left };
+  return clampCardPosition({ top, left });
 }
 
 function ensureCardMounted(): void {
@@ -115,6 +128,12 @@ function ensureCardMounted(): void {
 
   cardComponent.$on("retry", () => {
     void runExplainFlow(true);
+  });
+
+  cardComponent.$on("move", (event: CustomEvent<{ top: number; left: number }>) => {
+    updateCard({
+      position: clampCardPosition(event.detail)
+    });
   });
 }
 
