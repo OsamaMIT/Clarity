@@ -1,10 +1,10 @@
-export type AudienceMode = "general" | "non_native" | "older_generation" | "non_technical";
+export type AudienceMode = "children" | "teens" | "young_adults" | "adults" | "seniors";
 
 export type Verbosity = "brief" | "balanced" | "detailed";
 
-export type EnglishLevel = "beginner" | "intermediate" | "advanced";
+export type EnglishLevel = "1" | "2" | "3" | "4" | "5";
 
-export type TechnicalFamiliarity = "beginner" | "intermediate" | "advanced";
+export type TechnicalFamiliarity = "kids" | "high_school" | "undergrad" | "graduate";
 export type ExplanationOrder = "meaning_first" | "simpler_first";
 
 export type SourceType = "social" | "news_article" | "technical" | "blog" | "general";
@@ -23,11 +23,11 @@ export interface UserSettings {
 
 export const DEFAULT_SETTINGS: UserSettings = {
   apiKey: "", // Please don't bankrupt me, this is only exposed for the hackathon
-  audienceMode: "general",
+  audienceMode: "adults",
   verbosity: "balanced",
   nativeLanguage: "English",
-  englishLevel: "intermediate",
-  technicalFamiliarity: "intermediate",
+  englishLevel: "3",
+  technicalFamiliarity: "high_school",
   explanationOrder: "meaning_first"
 };
 

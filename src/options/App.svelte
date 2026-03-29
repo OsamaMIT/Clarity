@@ -16,11 +16,40 @@
   let isSaving = false;
   let status = "";
 
-  const audienceModes: AudienceMode[] = ["general", "non_native", "older_generation", "non_technical"];
+  const audienceModes: AudienceMode[] = ["children", "teens", "young_adults", "adults", "seniors"];
   const verbosityModes: Verbosity[] = ["brief", "balanced", "detailed"];
-  const englishLevels: EnglishLevel[] = ["beginner", "intermediate", "advanced"];
-  const technicalLevels: TechnicalFamiliarity[] = ["beginner", "intermediate", "advanced"];
+  const englishLevels: EnglishLevel[] = ["1", "2", "3", "4", "5"];
+  const technicalLevels: TechnicalFamiliarity[] = ["kids", "high_school", "undergrad", "graduate"];
   const explanationOrders: ExplanationOrder[] = ["meaning_first", "simpler_first"];
+  const audienceModeLabels: Record<AudienceMode, string> = {
+    children: "Children",
+    teens: "Teens",
+    young_adults: "Young Adults",
+    adults: "Adults",
+    seniors: "Seniors"
+  };
+  const verbosityLabels: Record<Verbosity, string> = {
+    brief: "Brief",
+    balanced: "Balanced",
+    detailed: "Detailed"
+  };
+  const levelLabels: Record<EnglishLevel, string> = {
+    "1": "1 - Very basic",
+    "2": "2 - Basic",
+    "3": "3 - Intermediate",
+    "4": "4 - Upper intermediate",
+    "5": "5 - Advanced"
+  };
+  const technicalLevelLabels: Record<TechnicalFamiliarity, string> = {
+    kids: "School Student",
+    high_school: "High School Graduate",
+    undergrad: "Undergraduate",
+    graduate: "Graduate / Professional"
+  };
+  const explanationOrderLabels: Record<ExplanationOrder, string> = {
+    meaning_first: "Meaning first",
+    simpler_first: "Simpler version first"
+  };
 
   onMount(async () => {
     settings = await getSettings();
@@ -60,13 +89,13 @@
 
       <div class="grid gap-4 md:grid-cols-2">
         <label class="block space-y-1">
-          <span class="text-sm font-medium">Audience Mode</span>
+          <span class="text-sm font-medium">Age Group</span>
           <select
             class="w-full rounded-md border border-input bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
             bind:value={settings.audienceMode}
           >
             {#each audienceModes as mode}
-              <option value={mode}>{mode}</option>
+              <option value={mode}>{audienceModeLabels[mode]}</option>
             {/each}
           </select>
         </label>
@@ -78,13 +107,13 @@
             bind:value={settings.verbosity}
           >
             {#each verbosityModes as mode}
-              <option value={mode}>{mode}</option>
+              <option value={mode}>{verbosityLabels[mode]}</option>
             {/each}
           </select>
         </label>
 
         <label class="block space-y-1">
-          <span class="text-sm font-medium">Native Language</span>
+          <span class="text-sm font-medium">Your Native Language</span>
           <input
             type="text"
             class="w-full rounded-md border border-input bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -94,37 +123,37 @@
         </label>
 
         <label class="block space-y-1">
-          <span class="text-sm font-medium">English Level</span>
+          <span class="text-sm font-medium">English Proficiency</span>
           <select
             class="w-full rounded-md border border-input bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
             bind:value={settings.englishLevel}
           >
             {#each englishLevels as level}
-              <option value={level}>{level}</option>
+              <option value={level}>{levelLabels[level]}</option>
             {/each}
           </select>
         </label>
 
         <label class="block space-y-1">
-          <span class="text-sm font-medium">Technical Familiarity</span>
+          <span class="text-sm font-medium">Background Level</span>
           <select
             class="w-full rounded-md border border-input bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
             bind:value={settings.technicalFamiliarity}
           >
             {#each technicalLevels as level}
-              <option value={level}>{level}</option>
+              <option value={level}>{technicalLevelLabels[level]}</option>
             {/each}
           </select>
         </label>
 
         <label class="block space-y-1">
-          <span class="text-sm font-medium">Popup Order</span>
+          <span class="text-sm font-medium">Explanation Order</span>
           <select
             class="w-full rounded-md border border-input bg-white px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
             bind:value={settings.explanationOrder}
           >
             {#each explanationOrders as order}
-              <option value={order}>{order}</option>
+              <option value={order}>{explanationOrderLabels[order]}</option>
             {/each}
           </select>
         </label>
