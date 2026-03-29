@@ -38,6 +38,7 @@
   {type}
   {disabled}
   class={cn(buttonVariants({ variant, size }), className)}
+  on:click
   {...$$restProps}
 >
   <slot />
